@@ -1,0 +1,55 @@
+﻿
+@model SimpleAuction.Web.Mvc.Models.Resistor.ResistorOhmCalculationViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    select {
+        width: 120px;
+    }
+</style>
+
+<h2>Resistance Calculator</h2>
+
+<div class="row">
+    <div class="col-md-12"><h4>Please select colors</h4></div>
+</div>
+@using (Html.BeginForm())
+{ 
+<div class="row">
+    <div class="col-md-2">Band A</div>
+    <div class="col-md-5">@Html.DropDownListFor(m => m.BandAColor, Model.SignificantColors)</div>
+    <div class="col-md-5"></div>
+</div>
+<div class="row">
+    <div class="col-md-2">Band B</div>
+    <div class="col-md-5">@Html.DropDownListFor(m => m.BandBColor, Model.SignificantColors)</div>
+    <div class="col-md-5"></div>
+</div>
+<div class="row">
+    <div class="col-md-2">Band C</div>
+    <div class="col-md-5">@Html.DropDownListFor(m => m.BandCColor, Model.MultiplierColors)</div>
+    <div class="col-md-5"></div>
+</div>
+<div class="row">
+    <div class="col-md-2">Band D</div>
+    <div class="col-md-5">@Html.DropDownListFor(m => m.BandDColor, Model.ToleranceColors)</div>
+    <div class="col-md-5"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"><span>Result:</span></div>
+    <div class="col-md-10"><span>@Html.DisplayFor(m => m.CalculatedResistance)</span></div>
+</div>
+}
+
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/Application/Resistor/Index.js"></script>
+}

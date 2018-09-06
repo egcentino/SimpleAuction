@@ -11,7 +11,7 @@ namespace SimpleAuction.Web.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Redirect("ResistorCalculator.aspx");
         }
     }
 }

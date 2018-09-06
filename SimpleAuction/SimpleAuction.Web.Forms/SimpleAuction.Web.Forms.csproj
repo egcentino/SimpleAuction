@@ -142,7 +142,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Resistor.aspx" />
     <Content Include="ResistorCalculator.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -206,13 +205,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resistor.aspx.cs">
-      <DependentUpon>Resistor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Resistor.aspx.designer.cs">
-      <DependentUpon>Resistor.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ResistorCalculator.aspx.cs">
       <DependentUpon>ResistorCalculator.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -256,6 +248,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimpleAuction.Core\SimpleAuction.Core.csproj">
+      <Project>{9e04aa4a-07e8-4390-b059-b4b27ab98370}</Project>
+      <Name>SimpleAuction.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleAuction.Service\SimpleAuction.Service.csproj">
       <Project>{8afc0a1f-8f33-477c-91d6-7ffbe6120f4f}</Project>
       <Name>SimpleAuction.Service</Name>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SimpleAuction.Core.Domain;
+using SimpleAuction.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,23 +10,33 @@ namespace SimpleAuction.Service
 {
     public class ResistorService
     {
+        private ResistorData _data = new ResistorData();
         public double GetResistance(string bandAColor, string bandBColor, string bandCColor, string bandDColor)
         {
             var mediator = new Resistors.ResistorMediator();
             return mediator.CalculateOhmValue2(bandAColor, bandBColor, bandCColor, bandDColor);
         }
      
-        public IEnumerable<Resistors.ResistorMediator.Color> GetSignificantColors()
+        public IEnumerable<ResistorColor> GetSignificantColors()
         {
-            return Resistors.ResistorMediator.Color.Colors.Where(x => x.SignificantFigures != null);
+            return _data.GetColors().Where(x => x.SignificantFigures != null);
         }
-        public IEnumerable<Resistors.ResistorMediator.Color> GetMultiplierColors()
+        public IEnumerable<ResistorColor> GetMultiplierColors()
         {
-            return Resistors.ResistorMediator.Color.Colors.Where(x => x.Multiplier != null);
+            return _data.GetColors().Where(x => x.Multiplier != null);
         }
-        public IEnumerable<Resistors.ResistorMediator.Color> GetToleranceColors()
+        public IEnumerable<ResistorColor> GetToleranceColors()
         {
-            return Resistors.ResistorMediator.Color.Colors.Where(x => x.Tolerance != null);
+            return _data.GetColors().Where(x => x.Tolerance != null);
+        }
+
+        public void SaveRequest(ResistorCalculationRequest request)
+        {
+            _data.SaveCalculateRequest(request);
+        }
+        public IEnumerable<ResistorCalculationRequest> GetTopRequests(int rowCount)
+        {
+            return _data.GetTopRequests(rowCount);
         }
     }
 }

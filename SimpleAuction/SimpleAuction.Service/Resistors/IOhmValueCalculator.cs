@@ -17,6 +17,9 @@ namespace SimpleAuction.Service.Resistors
         int CalculateOhmValue(string bandAColor, string bandBColor, string bandCColor, string bandDColor);
     }
 
+    /// <summary>
+    /// Extension of IOhmValueCalculator to provide a method that returns a double data type
+    /// </summary>
     public interface IOhmValueCalculator2 : IOhmValueCalculator
     {
         double CalculateOhmValue2(string bandAColor, string bandBColor, string bandCColor, string bandDColor);

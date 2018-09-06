@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SimpleAuction.Service;
 using SimpleAuction.Service.Resistors;
+using SimpleAuction.Core.Domain;
 
 namespace SimpleAuction.Web.Forms
 {
@@ -25,20 +26,29 @@ namespace SimpleAuction.Web.Forms
                 ddlBandD.Items.AddRange(GetListItems(_resistorService.GetToleranceColors()));
 
                 lblResult.Text = "";
+
+                grdHistory.DataSource = _resistorService.GetTopRequests(5);
+                grdHistory.DataBind();
             }
         }
 
     
  
 
-        private ListItem[] GetListItems(IEnumerable<ResistorMediator.Color> colors)
+        private ListItem[] GetListItems(IEnumerable<ResistorColor> colors)
         {
             return colors.Select(x => new ListItem { Value = x.Name, Text = x.Name }).ToArray();
         }
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            lblResult.Text = _resistorService.GetResistance(ddlBandA.SelectedValue, ddlBandB.SelectedValue, ddlBandC.SelectedValue, ddlBandD.SelectedValue).ToString(ResistanceFormat);
+            var request = new ResistorCalculationRequest { ColorBandA = ddlBandA.SelectedValue, ColorBandB = ddlBandB.SelectedValue, ColorBandC = ddlBandC.SelectedValue, ColorBandD = ddlBandD.SelectedValue };
+            request.CalculatedValue = _resistorService.GetResistance(request.ColorBandA, request.ColorBandB, request.ColorBandC, request.ColorBandD);
+            request.RequestDateUtc = DateTime.UtcNow;
+            _resistorService.SaveRequest(request);
+            lblResult.Text = request.CalculatedValue.ToString(ResistanceFormat);
+            grdHistory.DataSource = _resistorService.GetTopRequests(5);
+            grdHistory.DataBind();
         }
     }
 }
